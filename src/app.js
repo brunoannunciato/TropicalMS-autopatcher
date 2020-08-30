@@ -17,7 +17,7 @@ document.querySelector('#button').addEventListener('click', async () => {
     //     });
     // }
 
-    const file = await Updater.getUpdater()
+    const file = await Updater.updateFile('map', {version: 3})
 
     console.log(file)
 
