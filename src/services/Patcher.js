@@ -7,6 +7,7 @@ class Patcher {
     }
 
     getDeprecatedFiles = async localUpdaterFiles => {
+        
         const remoteUpdater = await this.getRemoteUpdater()
 
         const deprecated = localUpdaterFiles.filter(file => {
