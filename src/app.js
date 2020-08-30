@@ -2,23 +2,27 @@ const Download = require('./services/Download')
 const Patcher = require('./services/Patcher')
 const Updater = require('./services/Updater')
 
-const baseURL = "http://145.14.134.159/files/";
-const finalPath = './';
+const main = async () => {
+    const localUpdater = await Updater.getUpdater()
+    const remoteUpdater = await Patcher.getRemoteUpdater()
+    const deprecatedFiles = await Patcher.getDeprecatedFiles(localUpdater, remoteUpdater)
+    
+    console.log(deprecatedFiles)
+    for (let file of deprecatedFiles) {
+        Download.downloadFile(file).then(async function(){
+            Updater.updateFile(file.name, {version: file.remoteVersion})
 
-document.querySelector('#button').addEventListener('click', async () => {
-    // const data = await Patcher.getDeprecatedFiles(localUpdater)
-       
-    // for (let file of data) {
-    //     Download.downloadFile({
-    //         remoteFile: `${baseURL}${file.file}`,
-    //         localFile: `${finalPath}${file.file}`
-    //     }).then(function(){
-    //         alert("File succesfully downloaded");
-    //     });
-    // }
+            console.log('Download concluído!')
+        });
+    }
+}
 
-    const file = await Updater.updateFile('map', {version: 3})
+main()
 
-    console.log(file)
+// document.querySelector('#button').addEventListener('click', async () => {
 
-})
+//     const file = await Updater.updateFile('map', {version: 3})
+
+//     console.log(file)
+
+// })

@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,700;1,400&display=swap');
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.background {
+    background: url(./images/background.png) no-repeat center left;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Balsamiq Sans', cursive;
+}
+
+.logo {
+    max-width: 300px;
+    transform: translate(17px, -25px);
+    pointer-events: none;
+    width: 100%;
+}
+
+.spinner {
+    animation: spin infinite .6s linear;
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    border-top: 5px solid #209f3e;
+    /* border-left: none;
+    border-bottom: none; */
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0); }
+    100% { transform: rotate(360deg); }
+}
+
+#play {
+    background-color: #fff;
+    box-sizing: border-box;
+    color: #209f3e;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 700;
+    border: 3px solid #209f3e;
+    border-radius: 24px;
+    padding: 10px 34px;
+    font-family: "Roboto",sans-serif;
+    transition: transform .3s ease, box-shadow .3s ease;
+    outline: none;
+    position: absolute;
+    bottom: 50px;
+    width: 80%;
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+    filter: grayscale(1);
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+#play:hover {
+    transform: scale(1.1) rotate(2deg);
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,1.25);
+}
