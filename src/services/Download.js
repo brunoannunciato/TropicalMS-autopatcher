@@ -1,16 +1,21 @@
-const request = require('request');
-const fs = require('fs');
+const request = require('request')
+const fs = require('fs')
+
+const baseURL = "http://145.14.134.159/files/"
+const finalPath = './'
 
 class Download {
-    downloadFile(configuration){
+    downloadFile(deprecatedFile){
+        console.log(deprecatedFile)
+        document.querySelector('.status').innerHTML = `Baixando ${deprecatedFile.file}`
         return new Promise(function(resolve, reject){
     
             var req = request({
                 method: 'GET',
-                uri: configuration.remoteFile
+                uri: `${baseURL}${deprecatedFile.file}`
             });
     
-            var out = fs.createWriteStream(configuration.localFile);
+            var out = fs.createWriteStream(`${finalPath}${deprecatedFile.file}`);
             req.pipe(out);
     
             req.on('end', function() {
