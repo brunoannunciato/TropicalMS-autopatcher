@@ -9,7 +9,9 @@ function createWindow () {
     height: 600,
     webPreferences: {
       nodeIntegration: true
-    }
+    },
+    resizable: false,
+    //autoHideMenuBar: true
   })
 
   win.webContents.openDevTools()
