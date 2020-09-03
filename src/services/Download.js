@@ -5,7 +5,7 @@ const baseURL = "http://145.14.134.159/files/"
 const finalPath = './'
 
 class Download {
-    downloadFile(deprecatedFile){
+    downloadFile(deprecatedFile) {
         console.log(deprecatedFile)
         document.querySelector('.status').innerHTML = `Baixando ${deprecatedFile.file}`
         return new Promise(function(resolve, reject){
@@ -13,19 +13,19 @@ class Download {
             var req = request({
                 method: 'GET',
                 uri: `${baseURL}${deprecatedFile.file}`
-            });
+            })
     
-            var out = fs.createWriteStream(`${finalPath}${deprecatedFile.file}`);
-            req.pipe(out);
+            var out = fs.createWriteStream(`${finalPath}${deprecatedFile.file}`)
+            req.pipe(out)
     
             req.on('end', function() {
-                resolve();
-            });
-        });
+                resolve()
+            })
+        })
     }
 
     getFilenameFromUrl(url){
-        return url.substring(url.lastIndexOf('/') + 1);
+        return url.substring(url.lastIndexOf('/') + 1)
     }
 }
 
