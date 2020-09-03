@@ -6,7 +6,6 @@ const finalPath = './'
 
 class Download {
     downloadFile(deprecatedFile) {
-        console.log(deprecatedFile)
         document.querySelector('.status').innerHTML = `Baixando ${deprecatedFile.file}`
         return new Promise(function(resolve, reject){
     
