@@ -19,10 +19,10 @@ class Updater {
         return true
     }
 
-    registerFile = async fileName => {
+    registerFile = async file => {
         const data = await this.getUpdater()
 
-        return await this.writeUpdater([...data, fileName])
+        return await this.writeUpdater([...data, file])
     }
 
     updateFile = async (fileName, modifier) => {
