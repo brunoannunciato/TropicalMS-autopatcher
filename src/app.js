@@ -18,7 +18,7 @@ const main = async () => {
     }
 
     for (let file of deprecatedFiles) {
-        Download.downloadFile(file).then(async function(){
+        Patcher.downloadFile(file).then(async function(){
             const index = localUpdater.findIndex(item => item.name === file.name)
             finishedDownloads++
             //console.log(`Baixou: ${downloads} de ${deprecatedFiles.length}`)

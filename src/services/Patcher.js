@@ -1,4 +1,9 @@
 const Updater = require('./Updater')
+const request = require('request')
+const fs = require('fs')
+
+const baseURL = "http://145.14.134.159/files/"
+const finalPath = './'
 
 class Patcher {
     status = document.querySelector('.status')
@@ -66,6 +71,24 @@ class Patcher {
         this.status.innerHTML = 'Pronto para jogar!'
         this.button.classList.add('is-actived')
         this.spinner.classList.add('hide')
+    }
+
+    downloadFile = deprecatedFile => {
+        document.querySelector('.status').innerHTML = `Baixando ${deprecatedFile.file}`
+        return new Promise(function(resolve, reject){
+    
+            const req = request({
+                method: 'GET',
+                uri: `${baseURL}${deprecatedFile.file}`
+            })
+    
+            const out = fs.createWriteStream(`${finalPath}${deprecatedFile.file}`)
+            req.pipe(out)
+    
+            req.on('end', function() {
+                resolve()
+            })
+        })
     }
 }
 
