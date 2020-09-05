@@ -3,6 +3,7 @@ const Updater = require('./Updater')
 class Patcher {
     status = document.querySelector('.status')
     button = document.querySelector('#play')
+    spinner = document.querySelector('.spinner')
 
     getRemoteUpdater = async () => {
         const hash = new Date()
@@ -23,36 +24,27 @@ class Patcher {
 
         for (let index in remoteUpdater) {
             const file =  remoteUpdater[index]
-
             if (!this.checkIfFileExistsLocalUpdater(localUpdaterFiles, file.name)) {
                 notExistentFiles.push({ name: file.name, file: file.file, version: 0 })
             }
         }
 
-        notExistentFiles.forEach(file => {
-            Updater.registerFile(file)
-        })
+        console.log({notExistentFiles})
+
+        Updater.writeUpdater([...localUpdaterFiles, ...notExistentFiles])
 
 
-        return await notExistentFiles
+        return notExistentFiles
     }
 
     getDeprecatedFiles = async (remoteUpdater) => {
         const localUpdater = await Updater.getUpdater()
 
-        await this.addNotExistentFilesOnLocalUpdater(localUpdater, remoteUpdater)
+        this.addNotExistentFilesOnLocalUpdater(localUpdater, remoteUpdater)
 
         const deprecated = localUpdater.filter(file => {
-            console.log({
-                file: file,
-                fileVersion: file.version,
-                remove: remoteUpdater[file.name.toLowerCase()],
-                removeVersion: remoteUpdater[file.name.toLowerCase()].version
-            })
             return file.version < remoteUpdater[file.name.toLowerCase()].version
         })
-
-        console.log({deprecated})
 
         const filesToUpdate = deprecated.map(file => {
             return {
@@ -60,8 +52,6 @@ class Patcher {
                 remoteVersion: remoteUpdater[file.name].version
             }
         })
-
-        console.log({filesToUpdate})
 
         if (deprecated.length > 0) {
             this.status.innerHTML = 'Atualizando arquivos...'
@@ -75,6 +65,7 @@ class Patcher {
     allowPlayGame = () => {
         this.status.innerHTML = 'Pronto para jogar!'
         this.button.classList.add('is-actived')
+        this.spinner.classList.add('hide')
     }
 }
 
