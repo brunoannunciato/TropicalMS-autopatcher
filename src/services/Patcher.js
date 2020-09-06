@@ -1,4 +1,5 @@
 const Updater = require('./Updater')
+const View = require('./View')
 const request = require('request')
 const fs = require('fs')
 
@@ -6,10 +7,6 @@ const baseURL = "http://145.14.134.159/files/"
 const finalPath = './game/'
 
 class Patcher {
-    status = document.querySelector('.status')
-    button = document.querySelector('#play')
-    spinner = document.querySelector('.spinner')
-
     constructor() {
         if (!fs.existsSync('./game')) {
             fs.mkdir('./game', { recursive: false }, (err) => {
@@ -65,7 +62,7 @@ class Patcher {
         })
 
         if (deprecated.length > 0) {
-            this.status.innerHTML = 'Atualizando arquivos...'
+            View.setStatus('Atualizando arquivos...')
 
             return filesToUpdate
         }
@@ -73,14 +70,9 @@ class Patcher {
         return []
     }
 
-    allowPlayGame = () => {
-        this.status.innerHTML = 'Pronto para jogar!'
-        this.button.classList.add('is-actived')
-        this.spinner.classList.add('hide')
-    }
-
     downloadFile = deprecatedFile => {
-        document.querySelector('.status').innerHTML = `Baixando ${deprecatedFile.file}`
+        View.setStatus(`Baixando ${deprecatedFile.file}`)
+
         return new Promise(function(resolve, reject){
     
             const req = request({
@@ -101,7 +93,7 @@ class Patcher {
         let finishedDownloads = 0
 
         if (deprecatedFiles.length === 0) {
-            this.allowPlayGame()
+            View.allowPlayGame()
 
             return
         }
@@ -116,7 +108,7 @@ class Patcher {
                 if (finishedDownloads === deprecatedFiles.length) {
                     Updater.writeUpdater(localUpdater)
 
-                    this.allowPlayGame()
+                    View.allowPlayGame()
                 }
 
             })
