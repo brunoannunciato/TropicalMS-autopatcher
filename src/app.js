@@ -1,4 +1,3 @@
-const Download = require('./services/Download')
 const Patcher = require('./services/Patcher')
 const Updater = require('./services/Updater')
 const { updateFile } = require('./services/Updater')
