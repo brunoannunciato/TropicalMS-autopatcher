@@ -3,12 +3,20 @@ const request = require('request')
 const fs = require('fs')
 
 const baseURL = "http://145.14.134.159/files/"
-const finalPath = './'
+const finalPath = './game/'
 
 class Patcher {
     status = document.querySelector('.status')
     button = document.querySelector('#play')
     spinner = document.querySelector('.spinner')
+
+    constructor() {
+        if (!fs.existsSync('./game')) {
+            fs.mkdir('./game', { recursive: false }, (err) => {
+                if (err) throw err;
+              });
+        }
+    }
 
     getRemoteUpdater = async () => {
         const hash = new Date()
