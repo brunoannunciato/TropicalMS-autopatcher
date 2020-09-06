@@ -34,8 +34,6 @@ class Patcher {
             }
         }
 
-        console.log({notExistentFiles})
-
         Updater.writeUpdater([...localUpdaterFiles, ...notExistentFiles])
 
 
@@ -101,12 +99,9 @@ class Patcher {
         }
 
         for (let file of deprecatedFiles) {
-            this.downloadFile(file).then(async function(){
+            this.downloadFile(file).then(async () =>{
                 const index = localUpdater.findIndex(item => item.name === file.name)
                 finishedDownloads++
-                //console.log(`Baixou: ${downloads} de ${deprecatedFiles.length}`)
-
-                console.log({file, localUpdater})
 
                 localUpdater[index].version = file.remoteVersion
 

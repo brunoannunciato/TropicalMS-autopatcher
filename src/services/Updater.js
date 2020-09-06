@@ -2,11 +2,10 @@ const { writeFile, readFile } = require('fs').promises
 
 class Updater {
     getUpdater = async () => {
-        let file
+        let file ={ error: true }
         try {
             file = await readFile('./updater.json')
         } catch (error) {
-            console.log({ error })
             await writeFile('./updater.json', JSON.stringify([]))
             file = await readFile('./updater.json')
         }
