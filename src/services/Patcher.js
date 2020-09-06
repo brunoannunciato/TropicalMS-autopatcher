@@ -90,6 +90,35 @@ class Patcher {
             })
         })
     }
+
+    updateGame = (deprecatedFiles, localUpdater) => {
+        let finishedDownloads = 0
+
+        if (deprecatedFiles.length === 0) {
+            this.allowPlayGame()
+
+            return
+        }
+
+        for (let file of deprecatedFiles) {
+            this.downloadFile(file).then(async function(){
+                const index = localUpdater.findIndex(item => item.name === file.name)
+                finishedDownloads++
+                //console.log(`Baixou: ${downloads} de ${deprecatedFiles.length}`)
+
+                console.log({file, localUpdater})
+
+                localUpdater[index].version = file.remoteVersion
+
+                if (finishedDownloads === deprecatedFiles.length) {
+                    Updater.writeUpdater(localUpdater)
+
+                    this.allowPlayGame()
+                }
+
+            })
+        }
+    }
 }
 
 module.exports = new Patcher()
