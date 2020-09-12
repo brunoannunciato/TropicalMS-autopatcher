@@ -14,7 +14,7 @@ function createWindow () {
     //autoHideMenuBar: true
   })
 
-  win.webContents.openDevTools()
+  //win.webContents.openDevTools()
 
   // e carrega o arquivo index.html do seu aplicativo.
   win.loadFile('src/index.html')
