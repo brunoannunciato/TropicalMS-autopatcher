@@ -1,3 +1,5 @@
+const View = require('./View')
+
 const { writeFile, readFile } = require('fs').promises
 
 class Updater {
@@ -8,6 +10,11 @@ class Updater {
         } catch (error) {
             await writeFile('./updater.json', JSON.stringify([]))
             file = await readFile('./updater.json')
+        }
+
+        if (file.length === 0) {
+            View.hideSpinner()
+            View.setStatus('Falha! Tente de novo em breve.')
         }
 
         return JSON.parse(file.toString())

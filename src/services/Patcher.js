@@ -3,7 +3,8 @@ const View = require('./View')
 const request = require('request')
 const fs = require('fs')
 
-const baseURL = "http://145.14.134.159/files/"
+const baseURL = 'http://145.14.134.159/files/game/'
+
 const finalPath = './game/'
 
 class Patcher {
@@ -51,7 +52,8 @@ class Patcher {
         this.addNotExistentFilesOnLocalUpdater(localUpdater, remoteUpdater)
 
         const deprecated = localUpdater.filter(file => {
-            return file.version < remoteUpdater[file.name.toLowerCase()].version
+            console.log(file.name.toLowerCase())
+            return file.version < remoteUpdater[file.name].version
         })
 
         const filesToUpdate = deprecated.map(file => {
@@ -72,6 +74,7 @@ class Patcher {
 
     downloadFile = deprecatedFile => {
         View.setStatus(`Baixando ${deprecatedFile.file}`)
+        console.log('url', `${baseURL}${deprecatedFile.file}`)
 
         return new Promise(function(resolve, reject){
     
