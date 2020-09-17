@@ -1,4 +1,8 @@
 const electron = require('electron')
+const nativeImage = require('electron').nativeImage;
+const image = nativeImage.createFromPath(__dirname + './tropical-icon.png'); 
+
+image.setTemplateImage(true);
 
 const { app, BrowserWindow } = require('electron')
 
@@ -10,6 +14,7 @@ function createWindow () {
     webPreferences: {
       nodeIntegration: true
     },
+    icon: image,
     resizable: false,
     //autoHideMenuBar: true
   })
