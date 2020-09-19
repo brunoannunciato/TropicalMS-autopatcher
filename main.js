@@ -16,7 +16,7 @@ function createWindow () {
     },
     icon: image,
     resizable: false,
-    //autoHideMenuBar: true
+    autoHideMenuBar: true
   })
 
   //win.webContents.openDevTools()
