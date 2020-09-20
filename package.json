@@ -1,20 +1,29 @@
 {
-  "name": "patcher",
+  "name": "TropicalMS",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "electron-builder"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^10.1.0"
+    "electron": "^10.1.0",
+    "electron-builder": "^22.8.1"
   },
   "dependencies": {
     "electron-packager": "^15.1.0",
     "request": "^2.88.2"
+  },
+  "build": {
+    "appId": "TropicalMs",
+    "win": {
+      "target": "nsis",
+      "icon": "build/tropical-icon.ico"
+    }
   }
 }
