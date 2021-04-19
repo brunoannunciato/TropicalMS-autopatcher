@@ -46,13 +46,30 @@ class Patcher {
         return notExistentFiles
     }
 
+    getLoalFiles = () => {
+        let list = []
+
+        fs.readdir('./game', (err, files) => {
+            if (err) {
+                return console.log('Unable to scan directory: ' + err);
+            } 
+
+            files.forEach(function (file) {
+                list.push(file)
+            })
+        })
+
+        return list
+    }
+
     getDeprecatedFiles = async (remoteUpdater) => {
+        const localFiles = this.getLoalFiles()
         const localUpdater = await Updater.getUpdater()
 
         this.addNotExistentFilesOnLocalUpdater(localUpdater, remoteUpdater)
 
         const deprecated = localUpdater.filter(file => {
-            return file.version < remoteUpdater[file.name].version
+            return file.version < remoteUpdater[file.name].version || localFiles.indexOf(file.file) === -1
         })
 
         const filesToUpdate = deprecated.map(file => {
@@ -71,7 +88,6 @@ class Patcher {
         return []
     }
 
-    
     downloadFile = deprecatedFile => {
         View.setStatus(`Baixando ${deprecatedFile.file}`)
         
