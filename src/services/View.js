@@ -65,12 +65,10 @@ class View {
 
     startGame = () => {
         child(setupPath, function(err, data) {
-            console.log({setupPath})
             if(err){
             console.error(err)
             return
             }
-            console.log('runData:', data.toString());
         })
     }
 }
