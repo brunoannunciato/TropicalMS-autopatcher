@@ -3,7 +3,7 @@ const View = require('./View')
 const request = require('request')
 const fs = require('fs')
 
-const baseURL = 'http://145.14.134.159/files/game/'
+const baseURL = 'https://arquivos.tropicalms.com.br/files/game/'
 
 const finalPath = './game/'
 
@@ -18,7 +18,7 @@ class Patcher {
 
     getRemoteUpdater = async () => {
         const hash = new Date()
-        const response = await fetch(`http://145.14.134.159/files/updater.json?v=${ hash.getMilliseconds() }`)
+        const response = await fetch(`https://arquivos.tropicalms.com.br/files/updater.json?v=${ hash.getMilliseconds() }`)
         const updater = await response.json()
 
         return updater
@@ -74,7 +74,6 @@ class Patcher {
     
     downloadFile = deprecatedFile => {
         View.setStatus(`Baixando ${deprecatedFile.file}`)
-        console.log({deprecatedFile})
         
         return new Promise(function(resolve, reject){
             var received_bytes = 0;
