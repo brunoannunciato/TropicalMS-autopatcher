@@ -1,29 +1,32 @@
 {
-  "name": "TropicalMS",
+  "name": "tropicalms",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "dist": "electron-builder"
+    "dist": "electron-builder --ia32"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Quiabo",
+  "license": "MIT",
   "devDependencies": {
     "electron": "^10.1.0",
-    "electron-builder": "^22.8.1"
+    "electron-builder": "^22.10.5"
   },
   "dependencies": {
     "electron-packager": "^15.1.0",
     "request": "^2.88.2"
   },
   "build": {
-    "appId": "TropicalMs",
-    "win": {
-      "target": "nsis",
-      "icon": "build/tropical-icon.ico"
+    "appId": "com.tropicalms.app",
+    "productName": "TropicalMS",
+    "target": "NSIS",
+    "icon": "build/tropical-icon.ico",
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false
     }
   }
 }
