@@ -3,7 +3,11 @@ const View = require('./View')
 const request = require('request')
 const fs = require('fs')
 
+<<<<<<< HEAD
 const baseURL = 'http://arquivos.tropicalms.com.br/files/game/'
+=======
+const baseURL = 'https://arquivos.tropicalms.com.br/files/game/'
+>>>>>>> 9c0cf63c689342ebab07bd3ab6612e1cd23725ef
 
 const finalPath = './game/'
 
@@ -18,7 +22,11 @@ class Patcher {
 
     getRemoteUpdater = async () => {
         const hash = new Date()
+<<<<<<< HEAD
         const response = await fetch(`http://arquivos.tropicalms.com.br/files/updater.json?v=${ hash.getMilliseconds() }`)
+=======
+        const response = await fetch(`https://arquivos.tropicalms.com.br/files/updater.json?v=${ hash.getMilliseconds() }`)
+>>>>>>> 9c0cf63c689342ebab07bd3ab6612e1cd23725ef
         const updater = await response.json()
 
         return updater
@@ -46,13 +54,30 @@ class Patcher {
         return notExistentFiles
     }
 
+    getLoalFiles = () => {
+        let list = []
+
+        fs.readdir('./game', (err, files) => {
+            if (err) {
+                return console.log('Unable to scan directory: ' + err);
+            } 
+
+            files.forEach(function (file) {
+                list.push(file)
+            })
+        })
+
+        return list
+    }
+
     getDeprecatedFiles = async (remoteUpdater) => {
+        const localFiles = this.getLoalFiles()
         const localUpdater = await Updater.getUpdater()
 
         this.addNotExistentFilesOnLocalUpdater(localUpdater, remoteUpdater)
 
         const deprecated = localUpdater.filter(file => {
-            return file.version < remoteUpdater[file.name].version
+            return file.version < remoteUpdater[file.name].version || localFiles.indexOf(file.file) === -1
         })
 
         const filesToUpdate = deprecated.map(file => {
@@ -71,11 +96,14 @@ class Patcher {
         return []
     }
 
-    
     downloadFile = deprecatedFile => {
         console.log(1)
         View.setStatus(`Baixando ${deprecatedFile.file}`)
+<<<<<<< HEAD
         console.log(2)
+=======
+        
+>>>>>>> 9c0cf63c689342ebab07bd3ab6612e1cd23725ef
         return new Promise(function(resolve, reject){
             var received_bytes = 0;
             var total_bytes = 0;
