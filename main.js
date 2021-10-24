@@ -9,7 +9,7 @@ const { app, BrowserWindow } = require('electron')
 function createWindow () {
   // Cria uma janela de navegação.
   const win = new BrowserWindow({
-    width: 450,
+    width: 850,
     height: 600,
     webPreferences: {
       nodeIntegration: true
@@ -23,6 +23,7 @@ function createWindow () {
 
   // e carrega o arquivo index.html do seu aplicativo.
   win.loadFile('src/index.html')
+  win.webContents.openDevTools()
 }
 
 // Este método será chamado quando Electron terminar de inicializar
